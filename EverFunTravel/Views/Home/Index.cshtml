@@ -1,0 +1,59 @@
+﻿@model EverFunTravel.Models.AccountManageModel
+@{
+    ViewData["Title"] = "Home Page";
+    var customer = new AccountManageModel() { CustomerId = Model.CustomerId };
+}
+<div class="card">
+    <div class="card-body">
+        <div class="dataTables_wrapper dt-bootstrap4">
+            <div class="row">
+                <div class="col-sm-2">
+                    <partial name="CustomerPhoto.cshtml" model="customer"></partial>
+                </div>
+                <div class="col-sm-10">
+                    <div class="card-header form-group row">
+                        <div class="col-3">
+                            <h4 class="widget-title smaller" style="flex:0.5">
+                                <i class="ace-icon fas fa-solid fa-pen bigger-120"></i>
+                                基本資訊
+                            </h4>
+                        </div>
+                        <div class="col-9 text-right">
+                            <mod-action controller="Account" action="_UpdCustomer" route-id="@Model.CustomerId"></mod-action>
+                        </div>
+                    </div>
+                    <div>
+                        <table class="table table-bordered table-hover dataTable dtr-inline">
+                            <tbody>
+                                <tr class="@*@(Model.GetTrClass(item))*@">
+                                    <td>中文姓名</td>
+                                    <td><label><obj-text raw="@Model.CustomerName" /></label></td>
+                                    <td>英文姓名</td>
+                                    <td><label><obj-text raw="@Model.CustomerEName" /></label></td>
+                                </tr>
+                                <tr class="@*@(Model.GetTrClass(item))*@">
+                                    <td>手機號碼</td>
+                                    <td><label><obj-text raw="@Model.CustomerPhone" /></label></td>
+                                    <td>用戶性別</td>
+                                    <td><label><obj-text raw="@Model.CustomerSex" /></label></td>
+                                </tr>
+                                <tr class="@*@(Model.GetTrClass(item))*@">
+                                    <td>用戶生日</td>
+                                    <td><label><obj-text raw="@Model.CustomerBirth" /></label></td>
+                                    <td>用戶地址</td>
+                                    <td><label><obj-text raw="@Model.CustomerAddress" /></label></td>
+                                </tr>
+                                <tr class="@*@(Model.GetTrClass(item))*@">
+                                    <td>IsSubscribe</td>
+                                    <td><label><obj-text raw="@Model.IsSubscribe" /></label></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer form-group row">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,70 @@
+﻿@model EverFunTravel.Models.AccountManageModel
+@{
+}
+<div class="text-center bg-secondary">
+    <span id="sp_name" class="text-white">@Model?.CustomerName</span>
+    <input type="hidden" id="hid_StudId" value="@Model.CustomerId" />
+</div>
+<form method="post" id="form_photo" novalidate="novalidate" EncType="multipart/form-data" asp-controller="Home" asp-action="_UpdCustomerPhoto">
+    <div>
+        <img style="width:100%" id="imgphotoid" src="D://user/headImg/@Model?.CustomerHeadImg" />
+        <div class="form-group row ml-1 mt-2">
+            <file-input accept="image/*" is-multiple="false" model-for="UploadStudPhoto" control-width="180px"></file-input>
+            <div class="col-sm-4 row mt-2"><a href="#" id="a_updPhoto" style="margin-left:30px;" title="上傳"><i class="fas fa-cloud-upload-alt fa-lg "></i></a></div>
+            <input type="hidden" style="width:150px;" asp-for="CustomerId" />
+        </div>
+    </div>
+</form>
+<script>
+    $(function () {
+        if ($("#sp_name").text() == "") {//如果不是從Model繫結資料
+            let Data = { id: $("#hid_StudId").val() };
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("_GetStudPhoto", "Student")',
+                data: Data,
+                dataType: "json",
+                success: function (response) {
+                    var _data = response.data;
+                    $("#sp_name").text(_data.name);
+                    $("#imgphotoid").attr("src", _data.photosUrl);
+                    $("#StudId").val(_data.studId);
+                    console.log(response.data);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("error");
+                },
+            });
+        }
+    });
+    $("#UploadStudPhoto").change(function (e) {
+        debugger
+        const file = this.files[0];
+        const fr = new FileReader();
+        fr.onload = function (e) {
+            $('#imgphotoid').attr('src', e.target.result);
+        };
+        fr.readAsDataURL(file);
+    });
+    $("#a_updPhoto").off("click").on("click", function (e) {
+        e.preventDefault();
+        var form = $("#form_photo");
+        var url = form.attr('action');
+        var formData = new FormData($('#form_photo')[0]);
+        $.ajax({
+            type: 'post',
+            url: url,
+            data: formData,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                alert(data.message);
+                location.reload();
+            },
+            error: function () {
+                alert('大頭照上傳失敗');
+            }
+        });
+    });
+</script>

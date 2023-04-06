@@ -1,0 +1,79 @@
+﻿@model EverFunTravel.Models.AccountCreateModel
+@{
+
+}
+<div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+        <div class="content-wrapper d-flex align-items-center auth px-0">
+            <div class="row w-100 mx-0">
+                <div class="col-lg-4 mx-auto">
+                    <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+                        <div class="brand-logo">
+                            <h4>Hello! let's get started</h4>
+                            <h6 class="font-weight-light">Sign in to continue.</h6>
+                            <form asp-action="Create">
+                                <span asp-validation-for="CustomerEmail" class="text-danger"></span>
+                                <div class="input-group mb-3">
+                                    <input asp-for="CustomerEmail" type="text" class="form-control" placeholder="@Html.DisplayNameFor(x => x.CustomerEmail)" />
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-user"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="CustomerName" class="text-danger"></span>
+                                <div class="input-group mb-3">
+                                    <input asp-for="CustomerName" type="text" class="form-control" placeholder="@Html.DisplayNameFor(x => x.CustomerName)" />
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-user"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="CustomerPhone" class="text-danger"></span>
+                                <div class="input-group mb-3">
+                                    <input asp-for="CustomerPhone" type="text" class="form-control" placeholder="@Html.DisplayNameFor(x => x.CustomerPhone)" />
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-user"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="CustomerPassword" class="text-danger"></span>
+                                <div class="input-group mb-3">
+                                    <input asp-for="CustomerPassword" type="password" class="form-control" placeholder="@Html.DisplayNameFor(x => x.CustomerPassword)">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-lock"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="CheckPassword" class="text-danger"></span>
+                                <div class="input-group mb-3">
+                                    <input asp-for="CheckPassword" type="password" class="form-control" placeholder="@Html.DisplayNameFor(x => x.CheckPassword)">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-lock"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-3">
+                                    <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit">
+                                        SIGN IN
+                                    </button>
+                                </div>
+                            </form>
+                            @if (ViewContext.ModelState.ContainsKey("GeneralError"))
+                            {
+                                foreach (var item in ViewContext.ModelState["GeneralError"]!.Errors)
+                                {
+                                    <span class="text-danger">@item.ErrorMessage</span>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
